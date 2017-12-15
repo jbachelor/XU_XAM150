@@ -5,11 +5,13 @@
 	xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
 	prism:ViewModelLocator.AutowireViewModel="True"
 	x:Class="NetStatus.Views.NoNetworkPage"
-	Title="MainPage">
+	Title="No Network"
+    BackgroundColor="#F0F0F0">
 	<StackLayout
 		HorizontalOptions="Center"
 		VerticalOptions="Center">
 		<Label
-			Text="{Binding Title}" />
+            TextColor="#404040"
+			Text="No Network Connection Available" />
 	</StackLayout>
 </ContentPage>
