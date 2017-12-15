@@ -22,6 +22,7 @@ namespace NetStatus
         protected override void RegisterTypes()
         {
             Container.RegisterTypeForNavigation<NoNetworkPage>();
+            Container.RegisterTypeForNavigation<NetworkViewPage>();
         }
     }
 }
