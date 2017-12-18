@@ -5,7 +5,7 @@
 	<key>CFBundleDisplayName</key>
 	<string>NetStatus</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.companyname.NetStatus</string>
+	<string>com.digipug.NetStatus</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
