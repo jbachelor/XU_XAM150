@@ -16,15 +16,14 @@ namespace NetStatus
     {
         IConnectivity _connectivityService;
 
-        public App(IPlatformInitializer initializer = null) : base(initializer) { }
-
-        protected override void OnInitialized()
+        public App(IPlatformInitializer initializer = null) : base(initializer)
         {
-            Debug.WriteLine($"**** {this.GetType().Name}.{nameof(OnInitialized)}");
+            Debug.WriteLine($"**** {this.GetType().Name}.{nameof(App)}:  ctor");
+        }
 
-            InitializeComponent();
-
-            NavigateToAppropriateNetworkPage(_connectivityService.IsConnected);
+        ~App()
+        {
+            Debug.WriteLine($"**** {this.GetType().Name}.{nameof(App)}:  destruction");
         }
 
         protected override void RegisterTypes()
@@ -36,6 +35,25 @@ namespace NetStatus
 
             Container.RegisterInstance<IConnectivity>(CrossConnectivity.Current);
             _connectivityService = Container.Resolve<IConnectivity>();
+        }
+
+        protected override void OnInitialized()
+        {
+            Debug.WriteLine($"**** {this.GetType().Name}.{nameof(OnInitialized)}");
+
+            InitializeComponent();
+
+            NavigateToAppropriateNetworkPage(_connectivityService.IsConnected);
+        }
+
+        void NavigateToAppropriateNetworkPage(bool isNetworkConnected)
+        {
+            Debug.WriteLine($"**** {this.GetType().Name}.{nameof(NavigateToAppropriateNetworkPage)}:  isNetworkConnected={isNetworkConnected}");
+            var pageToNavigateTo = isNetworkConnected
+                ? nameof(NetworkViewPage)
+                : nameof(NoNetworkPage);
+
+            NavigationService.NavigateAsync($"/{pageToNavigateTo}", null, false, true);
         }
 
         protected override void OnStart()
@@ -51,16 +69,6 @@ namespace NetStatus
             Debug.WriteLine($"**** {this.GetType().Name}.{nameof(OnConnectivityChanged)}:  e.IsConnected={e.IsConnected}");
 
             NavigateToAppropriateNetworkPage(e.IsConnected);
-        }
-
-        void NavigateToAppropriateNetworkPage(bool isNetworkConnected)
-        {
-            Debug.WriteLine($"**** {this.GetType().Name}.{nameof(NavigateToAppropriateNetworkPage)}:  isNetworkConnected={isNetworkConnected}");
-            var pageToNavigateTo = isNetworkConnected
-                ? nameof(NetworkViewPage)
-                : nameof(NoNetworkPage);
-
-            NavigationService.NavigateAsync($"{pageToNavigateTo}");
         }
     }
 }

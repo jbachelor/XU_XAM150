@@ -15,6 +15,6 @@
             x:Name="ConnectionDetails"
             AutomationId="ConnectionDetails"
             TextColor="#404040"
-            Text="Network" />
+            Text="{Binding NetworkDescription}" />
     </StackLayout>
 </ContentPage>
