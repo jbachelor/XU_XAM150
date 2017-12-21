@@ -36,6 +36,9 @@ namespace NetStatus.ViewModels
         public void OnNavigatedFrom(NavigationParameters parameters)
         {
             Debug.WriteLine($"**** {this.GetType().Name}.{nameof(OnNavigatedFrom)}");
+
+            _connectivityService.ConnectivityChanged -= _connectivityService_ConnectivityChanged;
+            _connectivityService.ConnectivityTypeChanged -= _connectivityService_ConnectivityTypeChanged;
         }
 
         public void OnNavigatedTo(NavigationParameters parameters) { }
@@ -44,6 +47,20 @@ namespace NetStatus.ViewModels
         {
 
             Debug.WriteLine($"**** {this.GetType().Name}.{nameof(OnNavigatingTo)}");
+            _connectivityService.ConnectivityChanged += _connectivityService_ConnectivityChanged;
+            _connectivityService.ConnectivityTypeChanged += _connectivityService_ConnectivityTypeChanged;
+            NetworkDescription = GetNetworkDescription();
+        }
+
+        void _connectivityService_ConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
+        {
+            Debug.WriteLine($"**** {this.GetType().Name}.{nameof(_connectivityService_ConnectivityChanged)}");
+            NetworkDescription = GetNetworkDescription();
+        }
+
+        void _connectivityService_ConnectivityTypeChanged(object sender, ConnectivityTypeChangedEventArgs e)
+        {
+            Debug.WriteLine($"**** {this.GetType().Name}.{nameof(_connectivityService_ConnectivityTypeChanged)}");
             NetworkDescription = GetNetworkDescription();
         }
 
